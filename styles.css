@@ -1,0 +1,29 @@
+
+
+.board-container, .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 300px;
+    justify-content: center;
+}
+.cell {
+    height: 100px;
+    width: 100px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#reset-button {
+    width: 100px;
+    height: 30px;
+}
