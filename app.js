@@ -1,6 +1,7 @@
-let turn = true;
 
 const gameBoard = (() => {
+    //let turn = false;
+
   const gameBoard = ["", "", "", "", "", "", "", "", ""];
 
   const render = () => {
@@ -9,24 +10,11 @@ const gameBoard = (() => {
     });
   };
 
-  const reset = () => {
-    gameBoard.splice(0, 9, "", "", "", "", "", "", "", "", "");
-    render();
-    // Needed to make sure next turn is always X
-    turn = true;
-  };
+//   const takeTurn = () => {
+//     turn = !turn
+//     console.log("This is from Take turn function " + turn);
+//   }
 
-  const resetButton = () => {
-    let button = document.getElementById("reset-button") 
-    button.addEventListener('click', reset)
-}
-
-    const startButton = () => {
-        let button = document.getElementById("start-button")
-        button.addEventListener('click', placeSign)
-    }
-
-  
   const placeSign = () => {
     let boardDiv = document.querySelector(".game-board");
 
@@ -41,9 +29,10 @@ const gameBoard = (() => {
 
         //This is needed for 2 player game, but for now it is AI only.
         //turn = !turn;
-
-
         
+        Game.takeTurn()
+
+
         Game.aiLogicEasy()
         Game.checkWin();
       }
@@ -52,7 +41,7 @@ const gameBoard = (() => {
     });
   };
 
-  return { gameBoard, render, placeSign, reset, resetButton, startButton };
+  return { gameBoard, render, placeSign };
 })();
 
 const Player = (name, sign) => {
@@ -69,13 +58,13 @@ const AI = (active, sign) => {
 }
 
 const Game = (() => {
-    gameBoard.startButton()
-  gameBoard.resetButton();
 
   const player1 = Player("player 1", "X");
   const player2 = Player("player 2", "O");
 
   const newAi = AI(true, "O")
+
+  let turn = null;
 
   let winConditions = [
     [0, 1, 2],
@@ -92,31 +81,39 @@ const Game = (() => {
 
   //Alternates turns. Turn is currently global.
   const Turn = () => {
-    if (turn) {
+    if (turn || turn === null) {
       return player1.playerSign;
     } else {
-        // Maybe add AI logic in here
       return player2.playerSign;
     }
+  }
+
+    const takeTurn = () => {
+    if (!newAi.isActive) {
+        turn = !turn
+    }
+    console.log("This is from Take turn function " + turn);
   }
 
   const aiLogicEasy = () => {
     // Empty cells by index
     let emptyCells = []
 
-    for (let i = 0; i < gameBoard.gameBoard.length; i++) {
-        //Checks how many empty values there are.
-        if (gameBoard.gameBoard[i] === "") {
-            emptyCells.push(i)
+    if (newAi.isActive === true) {
+        for (let i = 0; i < gameBoard.gameBoard.length; i++) {
+            //Checks how many empty values there are.
+            if (gameBoard.gameBoard[i] === "") {
+                emptyCells.push(i)
+            }
+            
         }
-        
-    }
-    // Random number for the AI
-    let randomNumber = Math.floor(Math.random() * emptyCells.length)
-    //AI pick to gameboard
-    if (emptyCells.length >= 1) {
-        gameBoard.gameBoard.splice(emptyCells[randomNumber], 1, newAi.sign)
-        checkWin()
+        // Random number for the AI
+        let randomNumber = Math.floor(Math.random() * emptyCells.length)
+        //AI pick to gameboard
+        if (emptyCells.length >= 1) {
+            gameBoard.gameBoard.splice(emptyCells[randomNumber], 1, newAi.sign)
+            //checkWin()
+        }
     }
 
   }
@@ -135,17 +132,59 @@ const Game = (() => {
 
         if (a === b && b === c) {
             if (a === "X") {
-                alert("Player 1 wins");
+                console.log("Player 1 wins")
             } else {
-                alert("Ai wins");
+                console.log("AI wins")
             }
         }
     }
   }
 
+  const reset = () => {
+    gameBoard.gameBoard.splice(0, 9, "", "", "", "", "", "", "", "", "");
+    gameBoard.render();
+    // Needed to make sure next turn is always X
+    turn = true;
+  };
+
+
+  const resetButton = () => {
+    let button = document.getElementById("reset-button") 
+    button.addEventListener('click', reset)
+}
+
+    const startButton = () => {
+        let button = document.getElementById("start-button")
+        button.addEventListener('click', gameBoard.placeSign)
+    }
+
+    const multiplayerButton = () => {
+        let button = document.getElementById("multiplayer-button")
+        // Ai is true by default.
+        button.addEventListener('click', function() {
+            
+            newAi.isActive = false
+            console.log("Ai turned to False");
+            console.log("Turn turned to true");
+            turn = true
+        })
+    }
+
+    const aiButton = () => {
+        let button = document.getElementById("ai-button")
+        button.addEventListener('click', function() {
+            newAi.isActive = true
+            turn = null
+            console.log("Ai turned to true");
+        })
+    }
+
   const gameOver = () => {
 
   }
-   
-  return { Turn, checkWin, aiLogicEasy };
+    resetButton()
+   startButton()
+   multiplayerButton()
+  aiButton()
+  return { Turn, checkWin, aiLogicEasy, resetButton, startButton, multiplayerButton, aiButton, takeTurn, reset };
 })();
