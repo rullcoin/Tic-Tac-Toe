@@ -5,6 +5,14 @@
 body {
     font-family: 'Raleway', sans-serif;
     background-color: var(--main-bg-color);
+    display: flex;
+    justify-content: center;
+}
+
+.main-container {
+    width: 560px;
+    border: 1px solid rgb(206, 206, 206);
+    border-radius: 25px;
 }
 
 .board-container, .header {
@@ -20,12 +28,12 @@ body {
     grid-template-columns: repeat(3, 1fr);
     width: 300px;
     justify-content: center;
-    background-color: #cbd5e1;
+    background-color: #c3d9f5;
 }
 .cell {
-    height: 96px;
-    width: 96px;
-    border: 2px solid rgb(0, 0, 0);
+    height: 98px;
+    width: 98px;
+    border: 1px solid rgb(0, 0, 0);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -69,23 +77,29 @@ body {
     background-color: rgb(248, 160, 125);
 }
 
+.left-buttons button:active, .right-buttons button:active {
+    background-color: rgb(151, 243, 128);
+
+    transform: translateY(4px);
+}
+
 .button-container {
     display: flex;
     gap: 100px;
 }
 
 button:hover {
-    background-color: aquamarine;
+    background-color: rgb(151, 243, 128);
 }
 
 
 .new-bg {
     pointer-events: none;
-    background-color: rgb(127, 206, 120);
+    background-color: rgb(228, 216, 115);
 }
 
 .button-active {
-    background-color: rgb(89, 236, 212);
+    background-color: rgb(151, 243, 128);
 }
 
 .next-state {
