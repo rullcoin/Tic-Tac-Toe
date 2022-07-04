@@ -21,7 +21,7 @@ const gameBoard = (() => {
         gameBoard.splice(getID, 1, Game.Turn());
 
         Game.checkWin();
-        Game.aiLogicEasy();
+        Game.aiLogicEasy()
         Game.takeTurn();
        
       }
@@ -55,6 +55,8 @@ const Game = (() => {
   let totalMoves = 0
 
   let stateDiv = document.getElementById("next-state")
+  let mpButton = document.getElementById("multiplayer-button");
+  let pcButton = document.getElementById("ai-button");
 
   let winConditions = [
     [0, 1, 2],
@@ -84,7 +86,7 @@ const Game = (() => {
       return player2.playerSign;
     }
   };
-
+  //Function needed to make 2 player mode work and sign switch.
   const takeTurn = () => {
     if (!newAi.isActive) {
       turn = !turn;
@@ -156,6 +158,7 @@ const Game = (() => {
     roundWon = false;
     //Resets board class
     gameBoard.boardDiv.classList.remove("new-bg")
+    //Reset buttons color
   };
 
   const resetButton = () => {
@@ -169,17 +172,22 @@ const Game = (() => {
   };
 
   const multiplayerButton = () => {
-    let button = document.getElementById("multiplayer-button");
     // Ai is true by default.
-    button.addEventListener("click", function () {
+    mpButton.addEventListener("click", function () {
+    reset()
+    mpButton.classList.add("button-active")
+    pcButton.classList.remove("button-active")
       newAi.isActive = false;
       turn = true;
     });
   };
 
   const aiButton = () => {
-    let button = document.getElementById("ai-button");
-    button.addEventListener("click", function () {
+    pcButton.addEventListener("click", function () {
+    reset()
+    mpButton.classList.remove("button-active")
+    pcButton.classList.add("button-active")
+
       newAi.isActive = true;
       turn = null;
     });

@@ -1,4 +1,11 @@
+:root {
+    --main-bg-color: rgb(226, 241, 255);
+}
 
+body {
+    font-family: 'Raleway', sans-serif;
+    background-color: var(--main-bg-color);
+}
 
 .board-container, .header {
     display: flex;
@@ -13,17 +20,22 @@
     grid-template-columns: repeat(3, 1fr);
     width: 300px;
     justify-content: center;
+    background-color: #cbd5e1;
 }
 .cell {
-    height: 100px;
-    width: 100px;
-    border: 1px solid black;
+    height: 96px;
+    width: 96px;
+    border: 2px solid rgb(0, 0, 0);
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 3.3rem;
+    font-weight: bold;
+    transition: 2ms;
 }
 .header {
-    display: flex
+    display: flex;
+    font-size: 2rem;
 }
 
 .header button{
@@ -41,7 +53,42 @@
     padding-bottom: 15px;
 }
 
+.button-container button {
+    border-radius: 25px;
+    font-size: 1rem;
+    border-style: none;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#start-button {
+    background-color: rgb(149, 245, 84);
+}
+
+#reset-button {
+    background-color: rgb(248, 160, 125);
+}
+
+.button-container {
+    display: flex;
+    gap: 100px;
+}
+
+button:hover {
+    background-color: aquamarine;
+}
+
+
 .new-bg {
     pointer-events: none;
-    background-color: red;
+    background-color: rgb(127, 206, 120);
+}
+
+.button-active {
+    background-color: rgb(89, 236, 212);
+}
+
+.next-state {
+    font-size: 2.5rem;
+    font-weight: bold;
 }
