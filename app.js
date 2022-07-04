@@ -21,8 +21,9 @@ const gameBoard = (() => {
         gameBoard.splice(getID, 1, Game.Turn());
 
         Game.checkWin();
-        Game.takeTurn();
         Game.aiLogicEasy();
+        Game.takeTurn();
+       
       }
 
       render();
@@ -111,6 +112,7 @@ const Game = (() => {
 
       }
     }
+    checkWin()
   };
 
   const checkWin = () => {
