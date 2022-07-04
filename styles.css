@@ -63,7 +63,7 @@ body {
 
 .button-container button {
     border-radius: 25px;
-    font-size: 1rem;
+    font-size: 0.8rem;
     border-style: none;
     font-weight: 700;
     cursor: pointer;
@@ -85,7 +85,8 @@ body {
 
 .button-container {
     display: flex;
-    gap: 100px;
+    width: 2rem;
+    justify-content: space-evenly;
 }
 
 button:hover {
