@@ -11,12 +11,17 @@
     <div class="header">
         <h1>Tic-Tac-Toe</h1>
         
-        <button id="start-button">Start</button>
-        <button id="reset-button">Reset</button>
-        <button id="multiplayer-button">Two Player</button>
-        <button id="ai-button">V.S Ai</button>
+        
+        <div class="button-container">
+            <button id="start-button">Start</button>
+            <button id="reset-button">Reset</button>
+            <button id="multiplayer-button">Two Player</button>
+            <button id="ai-button">AI</button>
+        </div>
     </div>
     <div class="board-container">
+        <div id="next-state" class="next-state-hidden">
+        </div>
         <div class="game-board">
             <div class="cell" data-index="0"></div>
             <div class="cell" data-index="1"></div>
